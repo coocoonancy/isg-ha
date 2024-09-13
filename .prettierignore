@@ -1,0 +1,17 @@
+static
+public
+node_modules
+.vscode
+.husky
+.DS_Store
+.gitignore
+.editorconfig
+.prettierignore
+*.svg
+*.png
+*.jpg
+*.jpeg
+*.jif
+*.ico
+*.ttf
+*.woff
