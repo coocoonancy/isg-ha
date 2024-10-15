@@ -2,63 +2,107 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Web 平台颜色定义 */
 :root {
+  /* 共用主题色 */
   --theme-color: #007fff;
-  --divider-color: #808695;
-  --background-color: #ffffff;
-  --body-background-color: #f1f1f1;
-  --primary-color: #409eff;
+  /* 共用辅助色 */
+  --primary-color: #007fff;
+  --primary-pale-color: #edf5fe;
+  --primary-hover-color: #299bff;
+  --primary-active-color: #0065d9;
+  --primary-disabled-color: #cccccc;
   --success-color: #01c281;
+  --success-hover-color: #26e4a4;
+  --success-active-color: #018a5c;
   --warning-color: #fabc20;
+  --warning-hover-color: #ffd05b;
+  --warning-active-color: #dea517;
   --danger-color: #ff4929;
+  --danger-hover-color: #ff694f;
+  --danger-active-color: #de3012;
+  --positive-color: #5d4bff;
+  --urgent-color: #ff8e18;
   --info-color: #909399;
+  /* 分割线色 */
+  --divider-color: #808695;
+  /* 背景色 */
+  --bg-color: #ffffff;
+  --bg-body-color: #f1f1f1;
+  /* 文本色 */
   --text-color: #515a6e;
   --text-primary-color: #17233d;
   --text-secondary-color: #808695;
   --text-placeholder-color: #b6bac4;
+  /* 边框色 */
   --border-color: #dcdee2;
   --border-light-color: #e8eaec;
   --border-lighter-color: #efefef;
   --border-extralight-color: #f8f8f9;
+  /* 透明色 */
+  --mask-color: rgba(0, 0, 0, 0.5);
+}
+
+/* App 平台颜色定义 */
+[data-platform='app'] {
+  --divider-color: #e1e1e1;
+  --bg-color: #ffffff;
+  --bg-body-color: #f7f7f7;
+  --text-color: #666666;
+  --text-primary-color: #111111;
+  --text-secondary-color: #999999;
+  --text-placeholder-color: #cccccc;
+  --border-color: #cccccc;
+}
+
+/* Dark 模式支持 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --warning-color: #ffd916;
+    --divider-color: #262626;
+    --bg-color: #000000;
+    --bg-body-color: #111111;
+    --text-color: #cccccc;
+    --text-primary-color: #f2f2f2;
+    --text-secondary-color: #a6a6a6;
+    --text-placeholder-color: #595959;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  /* 平台特定样式 */
+  [data-platform='app'] {
+    --theme-strong-color: #00834c;
+    --theme-gray-color: #1a3027;
+    --warning-color: #ffd916;
+    --warning-strong-color: #ffb024;
+    --urgent-strong-color: #cf6900;
+    --success-strong-color: #009984;
+    --positive-strong-color: #4431f3;
+    --divider-color: #e1e1e1;
+    --bg-color: #000000;
+    --bg-body-color: #121212;
+    --bg-table-color: #1c1c1e;
+    --bg-dialog-color: #1c1c1e;
+    --text-color: #cccccc;
+    --text-primary-color: #f2f2f2;
+    --text-secondary-color: #a6a6a6;
+    --text-placeholder-color: #595959;
+    --text-dialog-color: #f7f7f7;
+    --border-color: #cccccc;
+  }
+}
+html {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--text-color);
+  background-color: var(--bg-color);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.dark {
-  --theme-color: #007fff;
-  --divider-color: #262626;
-  --background-color: #000000;
-  --body-background-color: #111111;
-  --primary-color: #409eff;
-  --success-color: #01c281;
-  --warning-color: #fabc20;
-  --danger-color: #ff4929;
-  --info-color: #909399;
-  --text-color: #cccccc;
-  --text-primary-color: #f2f2f2;
-  --text-secondary-color: #a6a6a6;
-  --text-placeholder-color: #595959;
-  --border-color: #dcdee2;
-  --border-light-color: #e8eaec;
-  --border-lighter-color: #efefef;
-  --border-extralight-color: #f8f8f9;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
@@ -67,6 +111,15 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+a {
+  font-weight: 500;
+  color: var(--primary-color);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--primary-hover-color);
 }
 
 h1 {
@@ -81,38 +134,21 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: var(--border-color) 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--border-color);
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
-.card {
-  padding: 2em;
-}
-
 #app {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
