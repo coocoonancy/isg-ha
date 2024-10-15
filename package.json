@@ -11,7 +11,9 @@
     "test": "lint-staged"
   },
   "dependencies": {
+    "axios": "^1.7.7",
     "vue": "^3.4.37",
+    "vue-i18n": "10",
     "vue-router": "^4.4.4"
   },
   "devDependencies": {
