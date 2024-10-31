@@ -1,5 +1,8 @@
 import axios, { InternalAxiosRequestConfig, AxiosResponse } from 'axios';
 
+type RequestConfig = InternalAxiosRequestConfig;
+type PostResponse<T> = Promise<AxiosResponse<T>>;
+
 const axiosInstance = axios.create({
   baseURL:
     import.meta.env.MODE === 'development'
@@ -15,7 +18,7 @@ const axiosInstance = axios.create({
 
 // 请求拦截器
 axiosInstance.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
+  (config: RequestConfig) => {
     updateHeaders(config); // 更新请求头
     return config;
   },
@@ -45,7 +48,7 @@ axiosInstance.interceptors.response.use(
 );
 
 // 更新headers函数
-function updateHeaders(config: InternalAxiosRequestConfig) {
+function updateHeaders(config: RequestConfig) {
   const userInfo =
     JSON.parse(localStorage.getItem('isg_ha') || '{}')?.userInfo || {};
   const commonHeaders = config.headers || {};
@@ -66,20 +69,27 @@ function updateHeaders(config: InternalAxiosRequestConfig) {
 }
 
 // 简单封装请求方法
-export const Get = (url: string, config?: InternalAxiosRequestConfig) => {
-  return axiosInstance.get(url, config);
-};
 
-export const Post = (
+export const Get = <T>(
   url: string,
-  data = {},
-  config?: InternalAxiosRequestConfig
-) => {
-  return axiosInstance.post(url, data, config);
+  config?: RequestConfig
+): PostResponse<T> => {
+  return axiosInstance.get<T>(url, config);
 };
 
-export const Delete = (url: string, config?: InternalAxiosRequestConfig) => {
-  return axiosInstance.delete(url, config);
+export const Post = <T, D>(
+  url: string,
+  data: D,
+  config?: RequestConfig
+): PostResponse<T> => {
+  return axiosInstance.post<T, AxiosResponse<T>, D>(url, data, config);
+};
+
+export const Delete = <T>(
+  url: string,
+  config?: RequestConfig
+): PostResponse<T> => {
+  return axiosInstance.delete<T>(url, config);
 };
 
 export default axiosInstance;
